@@ -5,3 +5,29 @@
 .header__logo {
   height: 40px;
 }
+
+.carousel-item img {
+  max-height: 300px;
+}
+
+.music {
+  border: 1px solid rgb(190, 190, 190);
+  border-radius: 5px;
+}
+
+.song_artist {
+  color: gray;
+}
+
+.music_button {
+  cursor: pointer;
+  font-size: 20px;
+}
+
+.whole_container {
+  width: 100%;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
