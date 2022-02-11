@@ -17,7 +17,7 @@
         "rank_artist" => "Artist",
         "rank_play" => "Play",
         "rank_download" => "Download",
-        "email" => "Email",
+        "phone" => "Phone Number",
         "password" => "Password",
         "username" => "Username",
         "register" => "Register",

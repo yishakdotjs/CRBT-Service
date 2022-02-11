@@ -28,55 +28,68 @@
 
 <body>
 
+    <div class="container">
+        <div class="row justify-content-center mt-5">
+            <form action="search.php" method="get" class="col-md-6">
+                <input type="text" class="form-control" name="query" placeholder="<?php echo $lang['search'] ?>" />
+                <button type="submit" class="mt-3 btn btn-block btn-primary"><?php echo $lang['searchh'] ?></button>
+            </form>
+        </div>
+    </div>
+
 
     <?php
 
 if($raw_results->num_rows == 0){
     ?>
-    <div class=" whole_container">
+    <div class=" whole_container mt-5">
         <p>No Results Found</p>
     </div>
     <?php
 }
 else {
     ?>
-    <table class="table">
-        <thead>
-            <tr>
-                <th scope="col">#</th>
-                <th scope="col"><?php echo $lang['rank_title'] ?></th>
-                <th scope="col"><?php echo $lang['rank_artist'] ?></th>
-                <th scope="col"><?php echo $lang['rank_play'] ?></th>
-                <th scope="col"><?php echo $lang['rank_download'] ?></th>
-            </tr>
-        </thead>
-        <tbody>
-            <?php
+    <div class="container">
+        <table class="table mt-5">
+            <thead>
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col"><?php echo $lang['rank_title'] ?></th>
+                    <th scope="col"><?php echo $lang['rank_artist'] ?></th>
+                    <th scope="col"><?php echo $lang['rank_play'] ?></th>
+                    <th scope="col"><?php echo $lang['rank_download'] ?></th>
+                </tr>
+            </thead>
+            <tbody>
+                <?php
 
 while ($row = $raw_results->fetch_assoc()){
     ?>
-            <tr>
-                <th scope="row">1</th>
-                <td><?php echo $row['title'] ?></td>
-                <td><?php echo $row['artist'] ?></td>
-                <td>
-                    <i class="fa-solid fa-circle-play music_button mr-2"
-                        onclick="play_audio('<?php echo $BASE_URL . '/music/' . $row['artist'] . '/' . $row['path'] ?>')"></i>
-                </td>
-                <td>
-                    <a href="<?php echo $BASE_URL . "/music/" . $row['artist'] . "/" . $row['path'] ?>"
-                        class="text-dark">
-                        <i class="fa-solid fa-circle-down music_button"></i>
-                    </a>
-                </td>
-            </tr>
-            <?php
+                <tr>
+                    <th scope="row"><?php echo $row['id'] ?></th>
+                    <td><?php echo $row['title'] ?></td>
+                    <td><?php echo $row['artist'] ?></td>
+                    <td>
+                        <i class="fa-solid fa-fast-backward music_button mr-2" onclick="fast_backward()"></i>
+                        <i class="fa-solid fa-circle-play music_button mr-2"
+                            onclick="play_audio('<?php echo $BASE_URL . '/music/' . $row['artist'] . '/' . $row['path'] ?>')"></i>
+                        <i class="fa-solid fa-fast-forward music_button mr-2" onclick="fast_forward()"></i>
+                    </td>
+                    <td>
+                        <a href="<?php echo $BASE_URL . "/music/" . $row['artist'] . "/" . $row['path'] ?>"
+                            class="text-dark">
+                            <i class="fa-solid fa-circle-down music_button"></i>
+                        </a>
+                    </td>
+                </tr>
+                <?php
 }
 
     ?>
 
-        </tbody>
-    </table>
+            </tbody>
+        </table>
+    </div>
     <?php
 }
 

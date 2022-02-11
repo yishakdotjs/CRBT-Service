@@ -134,3 +134,19 @@ function play_audio(src) {
     audioPlayer.pause();
   }
 }
+
+function fast_forward() {
+  let audioPlayer = document.getElementById("audio_player");
+
+  if (!audioPlayer.paused) {
+    audioPlayer.currentTime += 10;
+  }
+}
+
+function fast_backward() {
+  let audioPlayer = document.getElementById("audio_player");
+
+  if (!audioPlayer.paused) {
+    audioPlayer.currentTime -= 10;
+  }
+}

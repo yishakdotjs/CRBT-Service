@@ -48,16 +48,15 @@ include "config.inc.php";
             </div>
         </div>
     </div>
-    <div class="container mt-3 mb-3">
-        <div class="row">
-            <ul class="nav nav-pills col-md-6">
-                <li class="nav-item">
-                    <a class="nav-link text-dark active" id="homeTab" href="#"><?php echo $lang['home'] ?></a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link text-dark" id="ranksTab" href="#"><?php echo $lang['ranks'] ?></a>
-                </li>
-                <!-- <li
+    <div class="container align-items-center justify-content-between d-flex mt-3 mb-3">
+        <ul class="nav nav-pills d-flex align-items-center ">
+            <li class="nav-item">
+                <a class="nav-link black-color active" id="homeTab" href="#"><?php echo $lang['home'] ?></a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link black-color" id="ranksTab" href="#"><?php echo $lang['ranks'] ?></a>
+            </li>
+            <!-- <li
             class="nav-item d-flex align-items-center justify-content-center"
             type="button"
             id="dropdownMenuButton"
@@ -78,28 +77,27 @@ include "config.inc.php";
           <li class="nav-item">
             <a class="nav-link text-dark" id="allRBTTab" href="#">All RBT</a>
           </li> -->
-            </ul>
-            <div class="col-md-6 d-flex justify-content-end">
-                <?php
+        </ul>
+        <div class=" d-flex justify-content-end">
+            <?php
                     if (isset($_SESSION['username'])){
                         ?>
-                <span class="mr-2">Welcome, <?php echo $_SESSION['username'] ?></span> | <a href="logout.inc.php"
-                    class="text-dark ml-2">Logout</a>
-                <?php
+            <span class="mr-2">Welcome, <?php echo $_SESSION['username'] ?></span> | <a href="logout.inc.php"
+                class="text-dark ml-2">Logout</a>
+            <?php
                     }
                     else {
                         ?>
-                <a href="#" class="mr-2 text-dark" id="login"><?php echo $lang['login'] ?></a> |
-                <a href="#" class="ml-2 text-dark" id="register"><?php echo $lang['register'] ?></a>
-                <?php
+            <a href="#" class="mr-2 text-dark" id="login"><?php echo $lang['login'] ?></a> |
+            <a href="#" class="ml-2 text-dark" id="register"><?php echo $lang['register'] ?></a>
+            <?php
                     }
                 ?>
-            </div>
         </div>
     </div>
 
     <div id="home">
-        <div id="sliderControls" class="carousel slide" data-ride="carousel">
+        <!-- <div id="sliderControls" class="carousel slide" data-ride="carousel">
             <div class="carousel-inner">
                 <div class="carousel-item active">
                     <img src="assets/img/1.jpg" class="d-block w-100 img-fluid" alt="AbemCRBT Banner Ads" />
@@ -119,12 +117,19 @@ include "config.inc.php";
                 <span class="carousel-control-next-icon" aria-hidden="true"></span>
                 <span class="sr-only">Next</span>
             </button>
+        </div> -->
+
+        <div class="showcase">
+            <div class="container d-flex flex-column align-items-center justify-content-center">
+                <h1 class="heroText text-center"><?php echo $lang['title'] ?></h1>
+                <a href="#musics" class="button mt-3">Browse Now</a>
+            </div>
         </div>
 
-        <div class="container mt-5 mb-5">
+        <div class="container mt-3 mb-5" id="musics">
             <div class="row justify-content-between">
                 <div class="col-md-4">
-                    <h3 class="text-center"><?php echo $lang['hot'] ?></h3>
+                    <h3 class="text-center mt-2"><?php echo $lang['hot'] ?></h3>
                     <ul class="m-0">
                         <?php 
                         $hotQuery = $con->query("SELECT * FROM `musics` WHERE tag='hot' ORDER BY id DESC LIMIT 10");
@@ -139,8 +144,10 @@ include "config.inc.php";
                             <span class="song_title"><?php echo $row['title'] ?></span>
                             <span class="song_artist">By <?php echo $row['artist'] ?></span>
                             <div class="d-flex mt-2 justify-content-center">
+                                <i class="fa-solid fa-fast-backward music_button mr-2" onclick="fast_backward()"></i>
                                 <i class="fa-solid fa-circle-play music_button mr-2"
                                     onclick="play_audio('<?php echo $BASE_URL . '/music/' . $row['artist'] . '/' . $row['path'] ?>')"></i>
+                                <i class="fa-solid fa-fast-forward music_button mr-2" onclick="fast_forward()"></i>
                                 <a href="<?php echo $BASE_URL . "/music/" . $row['artist'] . "/" . $row['path'] ?>"
                                     class="text-dark">
                                     <i class=" fa-solid fa-circle-down music_button"></i>
@@ -154,7 +161,7 @@ include "config.inc.php";
                     </ul>
                 </div>
                 <div class="col-md-4">
-                    <h3 class="text-center"><?php echo $lang['new'] ?></h3>
+                    <h3 class="text-center mt-2"><?php echo $lang['new'] ?></h3>
                     <ul class="m-0">
 
                         <?php
@@ -167,11 +174,13 @@ include "config.inc.php";
                             <span class="song_title"><?php echo $row['title'] ?></span>
                             <span class="song_artist">By <?php echo $row['artist'] ?></span>
                             <div class="d-flex mt-2 justify-content-center">
+                                <i class="fa-solid fa-fast-backward music_button mr-2" onclick="fast_backward()"></i>
                                 <i class="fa-solid fa-circle-play music_button mr-2"
                                     onclick="play_audio('<?php echo $BASE_URL . '/music/' . $row['artist'] . '/' . $row['path'] ?>')"></i>
+                                <i class="fa-solid fa-fast-forward music_button mr-2" onclick="fast_forward()"></i>
                                 <a href="<?php echo $BASE_URL . "/music/" . $row['artist'] . "/" . $row['path'] ?>"
                                     class="text-dark">
-                                    <i class="fa-solid fa-circle-down music_button"></i>
+                                    <i class=" fa-solid fa-circle-down music_button"></i>
                                 </a>
                             </div>
                         </li>
@@ -209,12 +218,14 @@ include "config.inc.php";
                         while($row = $result->fetch_assoc()){
                             ?>
                     <tr>
-                        <th scope="row">1</th>
+                        <th scope="row"><?php echo $row['id'] ?></th>
                         <td><?php echo $row['title'] ?></td>
                         <td><?php echo $row['artist'] ?></td>
                         <td>
+                            <i class="fa-solid fa-fast-backward music_button mr-2" onclick="fast_backward()"></i>
                             <i class="fa-solid fa-circle-play music_button mr-2"
                                 onclick="play_audio('<?php echo $BASE_URL . '/music/' . $row['artist'] . '/' . $row['path'] ?>')"></i>
+                            <i class="fa-solid fa-fast-forward music_button mr-2" onclick="fast_forward()"></i>
                         </td>
                         <td>
                             <a href="<?php echo $BASE_URL . "/music/" . $row['artist'] . "/" . $row['path'] ?>"
@@ -246,8 +257,8 @@ include "config.inc.php";
                 </div>
                 <div class="modal-body">
                     <form id="loginForm" method="post" action="login.inc.php">
-                        <input type="email" id="loginEmail" class="form-control"
-                            placeholder="<?php echo $lang['email'] ?>..." required name="email" />
+                        <input type="number" id="loginEmail" class="form-control"
+                            placeholder="<?php echo $lang['phone'] . "... (09XXXXXXXX)" ?>" required name="email" />
                         <input type="password" id="loginPassword" class="form-control mt-3"
                             placeholder="<?php echo $lang['password'] ?>..." required />
                         <button type="submit" class="btn btn-block btn-primary mt-3">
@@ -280,8 +291,8 @@ include "config.inc.php";
                     <form id="registerForm" method="post" action="register.inc.php">
                         <input type="text" id="registerName" class="form-control"
                             placeholder="<?php echo $lang['username'] ?>..." required name="username" />
-                        <input type="email" id="registerEmail" class="form-control mt-3"
-                            placeholder="<?php echo $lang['email'] ?>..." required name="email" />
+                        <input type="number" id="registerEmail" class="form-control mt-3"
+                            placeholder="<?php echo $lang['phone'] . "... (09XXXXXXXX)" ?>" required name="email" />
                         <input type="password" id="registerPassword" class="form-control mt-3"
                             placeholder="<?php echo $lang['password'] ?>..." required name="password" />
                         <button type="submit" class="btn btn-block btn-primary mt-3" name="register">
@@ -306,10 +317,10 @@ include "config.inc.php";
 <script src="./assets/js/jquery.js"></script>
 <script src="./assets/js/bootstrap.js"></script>
 <script src="./assets/js/main.js"></script>
-<script>
+<!-- <script>
 $(".carousel").carousel({
     interval: 1500,
 });
-</script>
+</script> -->
 
 </html>
